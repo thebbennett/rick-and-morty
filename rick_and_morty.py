@@ -1,11 +1,10 @@
 import requests
 import csv
-import ipdb
-
 
 # define paramaters
 BASE_URL = "https://rickandmortyapi.com/api/"
 TARGET_DIR = "target"
+
 
 def get_results(endpoint):
     """
@@ -81,12 +80,11 @@ def export_to_csv(array, filename):
 
 
 def extract_id_from_url(url):
-    if url == '':
+    if url == "":
         return None
     else:
         id = int(url.split("/")[-1])
         return id
-
 
 
 def character_cleanup(character_api_result):
@@ -116,11 +114,11 @@ def character_cleanup(character_api_result):
 
     character.pop("origin")
 
-
     return character
 
+
 def episode_cleanup(episode_api_result):
-    episode = episode_api_result    #  Clean episode IDs
+    episode = episode_api_result  #  Clean episode IDs
 
     character_ids = []
     for character_url in episode["characters"]:
@@ -133,8 +131,9 @@ def episode_cleanup(episode_api_result):
 
     return episode
 
+
 def location_cleanup(location_api_result):
-    location = location_api_result    #  Clean episode IDs
+    location = location_api_result  #  Clean episode IDs
 
     resident_ids = []
     for resident_url in location["residents"]:
@@ -178,9 +177,7 @@ if __name__ == "__main__":
     location_api_results = get_results("location")
     locations = []
     for location_api_result in location_api_results:
-        ipdb.set_trace()
         location = location_cleanup(location_api_result)
         locations.append(location)
-
 
     # TODO: create character_episodes table and character_locations
